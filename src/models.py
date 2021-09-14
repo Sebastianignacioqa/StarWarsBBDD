@@ -24,18 +24,20 @@ class Comment(Base):
     id = Column(Integer, primary_key=True)
     author_id = Column(Integer, ForeignKey('user.id'))
     post_id = Column(Integer, ForeignKey('post.id'))
-    user = relationship(User)
+    user = relationship("User")
 
 class Post(Base):
     __tablename__ = 'post'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship("User")
 
 class Followers(Base):
     __tablename__ = 'followers'
     id = Column(Integer, primary_key=True)
     user_from_id = Column(Integer, ForeignKey('user.id'))
     user_to_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship("User")
 
 class Media(Base):
     __tablename__ = 'media'
@@ -43,6 +45,7 @@ class Media(Base):
     url = Column(String(250), nullable=False)
     post_id = Column(Integer, ForeignKey('post.id'))
     type = Column(Enum, nullable=False)
+    post = relationship("Post")
 
 
     def to_dict(self):
